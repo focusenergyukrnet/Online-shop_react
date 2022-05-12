@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.Footer {
+    padding: 20px;
+    text-align: center;
+    flex-basis: 100%;
+    background-color: $darkblue;
+
+    strong {
+        font-family: $ff-heading;
+        color: #fff;
+        text-shadow: 0 0 2px #fff;
+    }
+}
