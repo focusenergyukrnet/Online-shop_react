@@ -1,0 +1,40 @@
+@import '../../../variables';
+
+.PaginationButton {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: $blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $ff-common;
+    font-weight: 600;
+    font-size: .8rem;
+    cursor: pointer;
+    margin-right: 10px;
+    user-select: none;
+    transition: 
+        background-color 200ms ease,
+        color 200ms ease,
+        box-shadow 200ms ease;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px 6px #c4bfc4;
+    }
+    
+    &.Active {
+        background-color: $blue;
+        color: #fff;
+        cursor: default;
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+}
