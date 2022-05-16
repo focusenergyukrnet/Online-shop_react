@@ -28,6 +28,7 @@
 import React, { Component } from 'react';
 
 import productsData from './components/assets/database/products.json';
+import Products from './components/Products/Products';
 import Product from './components/Products/Product/Product';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
@@ -39,15 +40,18 @@ import './App.scss';
 class App extends Component {
     state = {
         search: '',
-        showModal: false
+        showModal: false,
+        showProducts: false,
+        activeCategory: null,
+        activePage: null
     }
 
     componentDidMount() {
-        // productsData.map((productData, i) => {
-                
-        //     console.log('[productData]', productData);
-        //     return <Product key={i} {...productData} />
-        // });
+        // const activeButton = document.querySelector('.Button.Active');
+        // console.log('[activeButton]', activeButton);
+        // const activeCategory = activeButton.textContent.toLowerCase();
+        // console.log('[activeCategory]', activeCategory);
+        this.setState({ showProducts: true });
     }
     
     onSearchHandler = e => {
@@ -60,6 +64,7 @@ class App extends Component {
 
     toggleCategoryHandler = (e) => {
         // console.log('[e.target]', e.target);
+        const { activePage } = this.state;
         const button = e.target;
         const categories = button.parentElement.children;
         for (const categoryBtn of categories) {
@@ -67,6 +72,12 @@ class App extends Component {
         }
 
         button.classList.add('Active');
+        // console.log('[button]', button);
+        const currentCategory = button.dataset.category;
+        console.log('[currentCategory]', currentCategory);
+        this.setState({ activeCategory: currentCategory, activePage: 1 });
+        // this.setState({activePage:  ''});
+        console.log('[activePage]', activePage);
     }
 
     openModalHandler = () => {
@@ -77,10 +88,25 @@ class App extends Component {
         e.preventDefault();
     }
 
+    onChangePageHandler = (e) => {
+        const paginationButton = e.target;
+        const { activePage } = this.state;
+
+        if (!paginationButton.classList.contains('PaginationButton')) return;
+        // console.log('[paginationButton]', paginationButton);
+        for (const button of paginationButton.parentElement.children) {
+            button.classList.remove('Active');
+        }
+        paginationButton.classList.add('Active');
+
+       const currentPage = paginationButton.dataset.page;
+       this.setState({ activePage: currentPage ? currentPage : 1 });
+       console.log('[currentPage]', currentPage);
+       console.log('[activePage]', activePage);
+    }
+
     render() {
-        const { search, showModal } = this.state;
-        // console.log('[search]', search);
-        // console.log('[showModal]', showModal);
+        const { search, showModal, showProducts, activePage } = this.state;
         return (
             <div className="App">
                 <Header 
@@ -91,7 +117,13 @@ class App extends Component {
                     onSubmit={this.onSubmitHandler}
                 />
                 <Sidebar />
-                <Main onClick={this.toggleCategoryHandler}/>
+                <Main 
+                    showProducts={showProducts}
+                    onClick={this.toggleCategoryHandler}
+                    changePage={this.onChangePageHandler}
+                    activePage={activePage}
+                    />
+                    
                 <Footer />
             </div>
         );

@@ -16,9 +16,6 @@ const Product = ({
     description,
     rating
 }) => {
-    // console.log('[category]', category);
-    // console.log('[amount]', amount);
-    // console.log('[rating]', rating);
     return (
         
         <div className="Product" >
@@ -38,7 +35,7 @@ const Product = ({
             <strong className="ProductWarranty">warranty: {warranty}</strong>
             <p className="ProductDescription">{ description.slice(0, 101) + '...' }</p>
 
-            <Button>Add to Cart</Button>
+            <Button className='Button'>Add to Cart</Button>
         </div>
     );
 };

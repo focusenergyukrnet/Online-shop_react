@@ -14,7 +14,6 @@ const Categories = ({ onClick }) => {
 
         return result;
     }, []);
-    // console.log('[categoryNames]', categoryNames);
     return (
         <div className="Categories">
             {
@@ -25,6 +24,7 @@ const Categories = ({ onClick }) => {
                     return <Button 
                                 key={i}
                                 className={!i ? 'Button Active' : 'Button'}
+                                category={name.toLowerCase()}
                                 onClick={onClick}
                             >
                                 {title}
@@ -33,7 +33,6 @@ const Categories = ({ onClick }) => {
             }
         </div>
     );
-
     
 };
 
