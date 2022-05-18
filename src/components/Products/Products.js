@@ -6,19 +6,14 @@ import productsData from '../assets/database/products.json';
 import Product from './Product/Product';
 import './Products.scss';
 
-const Products = ({ changePage, activePage }) => {
-    const categoryButton = document.querySelector('.Button.Active');
-    // console.log('[categoryButton]', categoryButton);
-    const activeCategory = categoryButton ? categoryButton.dataset.category : 'tv';
-    console.log('[activeCategory]', activeCategory);
-    const paginationButton = document.querySelector('.PaginationButton.Active');
-    // console.log('[paginationButton]', paginationButton);
+const Products = ({ changePage, onLoad, activeCategory, activePage }) => {
+    activeCategory = activeCategory ? activeCategory : 'tv';
+    // console.log('[activeCategory]', activeCategory);
 
     activePage = activePage ? activePage : 1;
-    console.log('[activePage]', activePage);
+    // console.log('[activePage]', activePage);
 
     const filteredProducts = productsData.filter(({ category }) => {
-        // if (!activePage) return category.toLowerCase() === activeCategory;
         return category.toLowerCase() === activeCategory;
     });
 
@@ -37,8 +32,9 @@ const Products = ({ changePage, activePage }) => {
         <div className="Products">
             {
             filteredProductsByPage.map((productData, i) => {
-                
+                // console.log('[productData]', productData);
                 return <Product key={i} 
+                            onLoad={onLoad}
                             {...productData} 
                         />
             })}

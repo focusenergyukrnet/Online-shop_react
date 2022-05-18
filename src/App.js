@@ -27,9 +27,9 @@
 
 import React, { Component } from 'react';
 
-import productsData from './components/assets/database/products.json';
-import Products from './components/Products/Products';
-import Product from './components/Products/Product/Product';
+// import productsData from './components/assets/database/products.json';
+// import Products from './components/Products/Products';
+// import Product from './components/Products/Product/Product';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
 import Main from './containers/Main/Main';
@@ -41,17 +41,13 @@ class App extends Component {
     state = {
         search: '',
         showModal: false,
-        showProducts: false,
+        // showProducts: false,
         activeCategory: null,
         activePage: null
     }
 
     componentDidMount() {
-        // const activeButton = document.querySelector('.Button.Active');
-        // console.log('[activeButton]', activeButton);
-        // const activeCategory = activeButton.textContent.toLowerCase();
-        // console.log('[activeCategory]', activeCategory);
-        this.setState({ showProducts: true });
+        // this.setState({ showProducts: true });
     }
     
     onSearchHandler = e => {
@@ -61,10 +57,17 @@ class App extends Component {
         // console.log('[e.target.value]', e.target.value);
         // console.log('[value]', value);
     }
-
+    
+    openModalHandler = () => {
+        this.setState({ showModal: true });
+    }
+    
+    onSubmitHandler = (e) => {
+        e.preventDefault();
+    }
+    
     toggleCategoryHandler = (e) => {
         // console.log('[e.target]', e.target);
-        const { activePage } = this.state;
         const button = e.target;
         const categories = button.parentElement.children;
         for (const categoryBtn of categories) {
@@ -74,18 +77,11 @@ class App extends Component {
         button.classList.add('Active');
         // console.log('[button]', button);
         const currentCategory = button.dataset.category;
-        console.log('[currentCategory]', currentCategory);
-        this.setState({ activeCategory: currentCategory, activePage: 1 });
-        // this.setState({activePage:  ''});
-        console.log('[activePage]', activePage);
-    }
-
-    openModalHandler = () => {
-        this.setState({ showModal: true });
-    }
-
-    onSubmitHandler = (e) => {
-        e.preventDefault();
+        // console.log('[currentCategory]', currentCategory);
+        this.setState({ 
+            activeCategory: currentCategory, 
+            activePage: 1 
+        });
     }
 
     onChangePageHandler = (e) => {
@@ -101,12 +97,46 @@ class App extends Component {
 
        const currentPage = paginationButton.dataset.page;
        this.setState({ activePage: currentPage ? currentPage : 1 });
-       console.log('[currentPage]', currentPage);
-       console.log('[activePage]', activePage);
+    }
+
+    onLoadHandler = (e) => {
+        // console.log('[e.target]', e.target);
+        const image = e.target;
+        image.hidden = true;
+        image.nextElementSibling.hidden = false;
+
+        setTimeout(() => {
+            image.hidden = false;
+
+            image.nextElementSibling.hidden = true;
+        }, 1000)
+    }
+
+    toggleDropdownHanler = (e) => {
+        console.log('[e.target]', e.target);
+        const dropdown = e.target.closest('.Dropdown');
+
+        // dropdownHeader.toggle.classList('Opened');
+        dropdown.classList.toggle('Opened');
+    }
+
+    toggleOptionIconHandler = (e) => {
+        const dropdownOption = e.target.closest('.DropdownOption');
+        if (!dropdownOption) return;
+        // console.log('[dropdownOption]', dropdownOption);
+        const icon = dropdownOption.firstElementChild;
+        // console.log('[icon]', icon);
+        if (icon.classList.contains('fa-check-square')) {
+            icon.classList.remove('fa-check-square');
+            icon.classList.add('fa-square');
+        } else {
+            icon.classList.remove('fa-square');
+            icon.classList.add('fa-check-square');
+        }
     }
 
     render() {
-        const { search, showModal, showProducts, activePage } = this.state;
+        const { search, showModal, activeCategory, activePage } = this.state;
         return (
             <div className="App">
                 <Header 
@@ -116,11 +146,16 @@ class App extends Component {
                     onClick={this.openModalHandler}
                     onSubmit={this.onSubmitHandler}
                 />
-                <Sidebar />
+                <Sidebar 
+                    toggleDropdown={this.toggleDropdownHanler}
+                    toggleOptionIcon={this.toggleOptionIconHandler} 
+                    activeCategory={activeCategory}
+                />
                 <Main 
-                    showProducts={showProducts}
+                    // showProducts={showProducts}
                     onClick={this.toggleCategoryHandler}
                     changePage={this.onChangePageHandler}
+                    onLoad={this.onLoadHandler}                    activeCategory={activeCategory}
                     activePage={activePage}
                     />
                     

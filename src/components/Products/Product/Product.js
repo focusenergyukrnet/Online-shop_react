@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Spinner from '../../UI/Spinner/Spinner';
 import Stars from '../../Stars/Stars';
 import Button from '../../UI/Button/Button';
 import './Product.scss';
@@ -14,7 +15,8 @@ const Product = ({
     price,
     warranty,
     description,
-    rating
+    rating,
+    onLoad
 }) => {
     return (
         
@@ -25,7 +27,8 @@ const Product = ({
             </div>
 
             <div className="ImageWrapper">
-                <img src={imageSrc} alt={model}/>
+                <img hidden src={imageSrc} alt={model} onLoad={onLoad}/>
+                <Spinner />
             </div>
 
             <h2 className="ProductManufacturer">{manufacturer}</h2>
