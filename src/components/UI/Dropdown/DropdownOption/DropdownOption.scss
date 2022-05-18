@@ -1,0 +1,22 @@
+@import '../../../../variables';
+
+.DropdownOption {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-top: none;
+    cursor: pointer;
+    user-select: none;
+
+    &:last-child {
+        border-radius: 0 0 3px 3px;
+    }
+
+    .far {
+        margin-right: 10px;
+        color: $blue;
+    }
+
+    strong {
+        font-weight: normal;
+    }
+}
