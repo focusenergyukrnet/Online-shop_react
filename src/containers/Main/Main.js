@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import Pagination from '../../components/Pagination/Pagination';
 import Products from '../../components/Products/Products';
 import Categories from '../../components/Categories/Categories';
 import './Main.scss';
 
-const Main = ({ changePage, onClick, onLoad, activeCategory, activePage }) => {
+const Main = ({ 
+    search, 
+    changePage, 
+    onClick, 
+    onLoad, 
+    activeCategory, 
+    activePage
+}) => {
     return (
         <div className="Main">
             <Categories onClick={onClick}/>
 
             {
-            // showProducts &&
                 <Products 
+                    search={search}
                     changePage={changePage} 
                     onLoad={onLoad}
                     activeCategory={activeCategory}
@@ -26,7 +32,9 @@ const Main = ({ changePage, onClick, onLoad, activeCategory, activePage }) => {
 };
 
 Main.propTypes = {
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    changePage: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
 };
 
 export default Main;

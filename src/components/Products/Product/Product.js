@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Spinner from '../../UI/Spinner/Spinner';
 import Stars from '../../Stars/Stars';
@@ -41,6 +42,19 @@ const Product = ({
             <Button className='Button'>Add to Cart</Button>
         </div>
     );
+};
+
+Product.propTypes = {
+    category: PropTypes.string.isRequired,
+    imageSrc: PropTypes.string.isRequired,
+    manufacturer: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    warranty: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    onLoad: PropTypes.func.isRequired
 };
 
 export default Product;

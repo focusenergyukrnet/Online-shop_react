@@ -8,13 +8,6 @@
         margin-bottom: 0;
     }
 
-    &.Opened {
-        .fas {
-            transform: rotate(180deg);
-            transition: transform 200ms ease;
-        }
-    }
-
     &Header {
         background-color: #eee;
         border: 1px solid #eee;
@@ -25,6 +18,8 @@
         align-items: center;
         cursor: pointer;
         user-select: none;
+        position: relative;
+        z-index: 2;
 
         .fa-chevron-down {
             position: relative;
@@ -34,5 +29,27 @@
         strong::first-letter {
             text-transform: capitalize;
         }
+
+        &.Closed {
+            .DropdownHeader {
+                position: relative;
+                z-index: 2;
+            }
+
+            .fa-chevron-down {
+                transform: rotate(180deg);
+                transition: transform 200ms ease;
+            }
+        }
     }
+
+    &Body {
+        height: 100%;
+        transition: height 300ms ease;
+    }
+
+}
+
+.Closed + .DropdownBody {
+    height: 0;
 }

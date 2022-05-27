@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import productsData from '../assets/database/products.json';
 import Button from '../UI/Button/Button';
@@ -33,7 +34,10 @@ const Categories = ({ onClick }) => {
             }
         </div>
     );
-    
+};
+
+Categories.propTypes = {
+    onClick: PropTypes.func.isRequired
 };
 
 export default Categories;

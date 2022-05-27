@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DropdownOption from './DropdownOption/DropdownOption';
 import './Dropdown.scss';
@@ -10,10 +11,9 @@ Dropdown = ({
     toggleDropdown, 
     toggleOptionIcon 
 }) => {
-    // console.log('[options]', options)
     return (
-        <div className="Dropdown" onClick={toggleDropdown}>
-            <div className='DropdownHeader'>
+        <div className="Dropdown">
+            <div className='DropdownHeader' onClick={toggleDropdown}>
                 <strong>{heading}</strong>
                 <i className='fas fa-chevron-down' />
             </div>
@@ -31,6 +31,13 @@ Dropdown = ({
             </ul>
         </div>
     );
+};
+
+Dropdown.propTypes = {
+    heading: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+    toggleDropdown: PropTypes.func.isRequired,
+    toggleOptionIcon: PropTypes.func.isRequired
 };
 
 export default Dropdown;

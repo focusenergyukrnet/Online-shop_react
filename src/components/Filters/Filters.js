@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import productsData from '../assets/database/products.json';
 import Dropdown from '../UI/Dropdown/Dropdown';
@@ -7,19 +8,15 @@ import './Filters.scss';
 
 const Filters = ({ toggleDropdown, toggleOptionIcon, activeCategory }) => {
     activeCategory = activeCategory ? activeCategory : 'tv';
-    // console.log('[activeCategory]', activeCategory);
     const categoryProducts = productsData.filter(({ category }) => {
         return category.toLowerCase() === activeCategory;
     });
-    // console.log('[categoryProducts]', categoryProducts);
     const filterNames = ['manufacturer', 'warranty', 'country', 'rating'];
 
     const filtersData = categoryProducts.reduce((result, product) => {
         for (const key in product) {
             if(!filterNames.includes(key)) continue;
-            // console.log('[product[key]]', product[key]);
             const filterValue = product[key];
-            
             if (Array.isArray(result[key]) && 
                 result[key].includes(filterValue)) continue;
             
@@ -29,18 +26,15 @@ const Filters = ({ toggleDropdown, toggleOptionIcon, activeCategory }) => {
                 result[key] = [filterValue];
             }
         }
-
         return result;
     }, {});
 
-    // console.log('[filtersData]', filtersData);
     const dropdownFilters = Object.entries(filtersData);
     dropdownFilters.forEach(key => {
         key = filtersData[key];
     });
 
     return (
-        
         <div className="Filters">
             {
                 dropdownFilters.map((filterKey, i) => {
@@ -57,6 +51,11 @@ const Filters = ({ toggleDropdown, toggleOptionIcon, activeCategory }) => {
             }
         </div>
     );
+};
+
+Filters.propTypes = {
+    toggleDropdown: PropTypes.func.isRequired,
+    toggleDropdownIcon: PropTypes.func
 };
 
 export default Filters;

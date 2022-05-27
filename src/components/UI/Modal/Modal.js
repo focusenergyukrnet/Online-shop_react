@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -21,9 +22,15 @@ const Modal = ({ email, password, onSubmit }) => {
                 name='password'
                 value={password}
             />
-            <Button>Submit</Button>
+            <Button className='Button'>Submit</Button>
         </form>
     );
+};
+
+Modal.propTypes = {
+    email: PropTypes.string,
+    password: PropTypes.string,
+    onSubmit: PropTypes.func.isRequired
 };
 
 export default Modal;

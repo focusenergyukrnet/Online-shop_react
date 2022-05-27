@@ -1,43 +1,63 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// import Categories from '../Categories/Categories';
 import Pagination from '../Pagination/Pagination';
 import productsData from '../assets/database/products.json';
 import Product from './Product/Product';
 import './Products.scss';
 
-const Products = ({ changePage, onLoad, activeCategory, activePage }) => {
+const Products = ({ 
+    search, 
+    changePage, 
+    onLoad, 
+    activeCategory, 
+    activePage, 
+}) => {
     activeCategory = activeCategory ? activeCategory : 'tv';
-    // console.log('[activeCategory]', activeCategory);
-
     activePage = activePage ? activePage : 1;
-    // console.log('[activePage]', activePage);
-
+    
     const filteredProducts = productsData.filter(({ category }) => {
         return category.toLowerCase() === activeCategory;
     });
 
     const min = activePage * 9 - 9;
     const max = activePage * 9;
-
     const filteredProductsByPage = filteredProducts.filter((_, i) => {
         return i >= min && i < max;
     });
 
-    // console.log('[filteredProductsByPage]', filteredProductsByPage);
-
     const productsAmount = filteredProducts.length;
+    
+    const regExp = new RegExp(search, 'i');
+    let searchedProducts;
+    if (search) {
+        searchedProducts = productsData.filter(product => {
+            for (const key in product) {
+                if (/id|imageSrc|price|rating/.test(key)) continue;
+                if (regExp.test(product[key])) return true;
+            }
+    
+            return false;
+        });
+    }
 
     return ( 
         <div className="Products">
             {
-            filteredProductsByPage.map((productData, i) => {
-                // console.log('[productData]', productData);
-                return <Product key={i} 
-                            onLoad={onLoad}
-                            {...productData} 
-                        />
-            })}
+                searchedProducts ?
+                    searchedProducts.map((productData, i) => {
+                        return <Product key={i} 
+                                    onLoad={onLoad}
+                                    {...productData} 
+                                />
+                    })
+                : filteredProductsByPage.map((productData, i) => {
+                    return <Product key={i} 
+                                onLoad={onLoad}
+                                {...productData} 
+                            />
+                })
+            }
             {productsAmount >= 9 &&
                 <Pagination 
                     productsAmount={productsAmount}
@@ -46,6 +66,13 @@ const Products = ({ changePage, onLoad, activeCategory, activePage }) => {
             }
         </div>
     );
+};
+
+Products.propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    changePage: PropTypes.func.isRequired,
+    productsAmount: PropTypes.number,
+    searchedProducts: PropTypes.object
 };
 
 export default Products;

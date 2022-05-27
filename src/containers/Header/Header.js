@@ -6,13 +6,13 @@ import Logo from '../../components/Logo/Logo';
 import Search from '../../components/Search/Search';
 import './Header.scss';
 
-const Header = ({ onChange, search, onClick, showModal, onSubmit }) => (
+const Header = ({ onKeyDown, search, onClick, showModal, onSubmit }) => (
     <div className="Header">
         <div className='HeaderWrapper'>
             <Logo title="Elon's Online shop" />
             <Search 
                 search={search}
-                onChange={onChange}
+                onKeyDown={onKeyDown}
             />
             <Auth 
                 onClick={onClick}
@@ -24,8 +24,9 @@ const Header = ({ onChange, search, onClick, showModal, onSubmit }) => (
 );
 
 Header.propTypes = {
-    search: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onKeyDown: PropTypes.func
 };
 
 export default Header;

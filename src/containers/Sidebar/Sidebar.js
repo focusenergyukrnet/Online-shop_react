@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Filters from '../../components/Filters/Filters';
-// import Dropdown from '../../components/UI/Dropdown/Dropdown';
 import './Sidebar.scss';
 
 const Sidebar = ({ toggleDropdown, toggleOptionIcon, activeCategory }) => (
@@ -11,10 +11,12 @@ const Sidebar = ({ toggleDropdown, toggleOptionIcon, activeCategory }) => (
             toggleOptionIcon={toggleOptionIcon}
             activeCategory={activeCategory}
         />
-        {/* <Dropdown toggleOptionIcon={toggleOptionIcon}/>
-        <Dropdown toggleOptionIcon={toggleOptionIcon}/>
-        <Dropdown toggleOptionIcon={toggleOptionIcon}/> */}
     </div>
 );
+
+Sidebar.propTypes = {
+    toggleDropdown: PropTypes.func.isRequired,
+    toggleOptionIcon: PropTypes.func.isRequired
+};
 
 export default Sidebar;

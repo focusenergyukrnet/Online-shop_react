@@ -6,6 +6,9 @@
     border-top: none;
     cursor: pointer;
     user-select: none;
+    position: relative;
+    left: 0;
+    transition: left 300ms ease;
 
     &:last-child {
         border-radius: 0 0 3px 3px;

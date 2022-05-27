@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Modal from '../UI/Modal/Modal';
 import Button from '../UI/Button/Button';
@@ -17,5 +18,10 @@ const Auth = ({ onClick, showModal, onSubmit }) => (
         </Button>
     </div>
 );
+
+Auth.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
+};
 
 export default Auth;
